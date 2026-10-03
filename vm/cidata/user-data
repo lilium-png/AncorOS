@@ -1,0 +1,23 @@
+#cloud-config
+hostname: ancoros-builder
+manage_etc_hosts: true
+users:
+  - name: builder
+    gecos: AncorOS Builder
+    groups: [adm, sudo]
+    shell: /bin/bash
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII20KC4iG3UheZ3YWd5/fvTm6Mto+XaKOT6/s/4dt+g1 7ims (admin)@7ims
+ssh_pwauth: false
+disable_root: true
+package_update: false
+package_upgrade: false
+apt:
+  preserve_sources_list: true
+growpart:
+  mode: auto
+  devices: ["/dev/vda"]
+resize_rootfs: true
+runcmd:
+  - [ sh, -c, "echo builder-ready > /var/log/ancoros-builder-ready" ]

@@ -1,0 +1,94 @@
+param(
+  [string]$Ppm = '',
+  [string]$InDir = 'C:\AncorOS\out',
+  [string]$Png = ''
+)
+Add-Type -AssemblyName System.Drawing
+
+$cs = @'
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Runtime.InteropServices;
+
+public class PpmReader
+{
+    private byte[] data;
+    private int pos;
+
+    public int Width;
+    public int Height;
+
+    public void Load(string path)
+    {
+        data = File.ReadAllBytes(path);
+        pos = 0;
+        string magic = Next();
+        if (magic != "P6") { throw new Exception("unsupported magic: " + magic); }
+        Width = int.Parse(Next());
+        Height = int.Parse(Next());
+        int maxval = int.Parse(Next());
+        if (maxval != 255) { throw new Exception("unsupported maxval: " + maxval); }
+    }
+
+    private string Next()
+    {
+        string token = "";
+        while (pos < data.Length)
+        {
+            char c = (char)data[pos];
+            if (c == '#')
+            {
+                while (pos < data.Length && data[pos] != 10) { pos++; }
+                continue;
+            }
+            if (c == ' ' || c == '\n' || c == '\r' || c == '\t')
+            {
+                pos++;
+                if (token.Length > 0) { return token; }
+                continue;
+            }
+            token += c;
+            pos++;
+        }
+        return token;
+    }
+
+    public void SavePng(string path)
+    {
+        Bitmap bmp = new Bitmap(Width, Height, PixelFormat.Format24bppRgb);
+        Rectangle rect = new Rectangle(0, 0, Width, Height);
+        BitmapData bd = bmp.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
+        byte[] row = new byte[Width * 3];
+        byte[] bgr = new byte[Width * 3];
+        for (int y = 0; y < Height; y++)
+        {
+            Buffer.BlockCopy(data, pos, row, 0, row.Length);
+            pos += row.Length;
+            for (int x = 0; x < Width; x++)
+            {
+                bgr[x * 3] = row[x * 3 + 2];
+                bgr[x * 3 + 1] = row[x * 3 + 1];
+                bgr[x * 3 + 2] = row[x * 3];
+            }
+            IntPtr target = IntPtr.Add(bd.Scan0, y * bd.Stride);
+            Marshal.Copy(bgr, 0, target, bgr.Length);
+        }
+        bmp.UnlockBits(bd);
+        bmp.Save(path, ImageFormat.Png);
+        bmp.Dispose();
+    }
+}
+'@
+Add-Type -TypeDefinition $cs -ReferencedAssemblies 'System.Drawing'
+
+$target = [IO.Path]::GetFullPath($Ppm)
+if (-not $target) { $target = [IO.Path]::GetFullPath((Join-Path $InDir 'shot.ppm')) }
+if (-not (Test-Path $target)) { "no such ppm: $target"; exit 1 }
+$reader = New-Object PpmReader
+$reader.Load($target)
+$outPng = $Png
+if (-not $outPng) { $outPng = [IO.Path]::ChangeExtension($target, '.png') }
+$reader.SavePng($outPng)
+"converted $target ($($reader.Width)x$($reader.Height)) -> $outPng ($([math]::Round((Get-Item $outPng).Length/1KB)) KB)"

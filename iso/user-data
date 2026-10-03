@@ -1,0 +1,44 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: ru_RU.UTF-8
+  keyboard:
+    layout: us
+  timezone: Europe/Moscow
+  identity:
+    hostname: ancoros
+    username: ancor
+    password: ancoros
+  network:
+    version: 2
+    ethernets:
+      ancoros-nm:
+        match:
+          name: "en*"
+        dhcp4: true
+  source:
+    id: ubuntu-desktop
+    search_drivers: false
+  refresh-installer:
+    update: false
+  updates:
+    security: true
+    esm-apps: false
+  storage:
+    layout:
+      name: direct
+  packages:
+    - fonts-comfortaa
+    - fonts-inter
+  late-commands:
+    - [ curtin, in-target, --target=/target, --, tee, -a, /etc/ancoros-install.log, <<<"AncorOS install completed" ]
+  user-data:
+    package_update: true
+    package_upgrade: false
+    packages:
+      - fonts-comfortaa
+      - fonts-inter
+    runcmd:
+      - [ bash, -lc, "install -m 0644 /dev/null /var/lib/ancoros-iso-seed" ]
+      - [ bash, -lc, "systemctl enable ancoros-firstboot.service" ]
+      - [ bash, -lc, "/usr/local/bin/ancoros-firstboot.sh" ]
