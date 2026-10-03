@@ -142,6 +142,50 @@ vm/             PowerShell-обвязка QEMU, PPM-конвертер, скри
 - У Ubuntu Dock в GNOME 50 отсутствует ключ `magnification`
 - Ubiquity в 26.04 нет, установщик — subiquity на Flutter, слайды ubiquity не показываются
 
+## Скачать
+
+Образ `AncorOS-26.04-amd64.iso`, 7 229 530 112 байт (6.73 GiB).
+
+**[Скачать с Google Drive](https://drive.usercontent.google.com/download?id=1fv48qRNSEPjzRTllmH-JKtsaLDgH63LR&export=download)**
+
+SHA256:
+
+```
+6e4e58ad6d1aa6228f5e585b0938cf4b6dfc6716e325effe910adf4b6c8f8a6a
+```
+
+Проверка:
+
+```powershell
+Get-FileHash AncorOS-26.04-amd64.iso -Algorithm SHA256
+```
+
+```bash
+sha256sum AncorOS-26.04-amd64.iso
+```
+
+### Запись на флешку
+
+Rufus:
+
+- Rufus → выбрать ISO → схема раздела **GPT** → целевая система **UEFI** → файловая система **FAT32** → Старт
+
+balenaEtcher:
+
+- Etcher → Flash from file → выбрать ISO → выбрать флешку → Flash
+
+Флешку нужно на 16 ГБ или больше.
+
+### Пункты меню загрузки
+
+| Пункт | Что делает |
+|---|---|
+| Install AncorOS (automatic) | автоустановка без вопросов |
+| Try AncorOS | живая сессия |
+| AncorOS (safe graphics) | загрузка без видеокарты |
+
+Логин и пароль автоустановки заданы в `iso/autoinstall.yaml`.
+
 ## Лицензия
 
 MIT License. См. [LICENSE](LICENSE).
