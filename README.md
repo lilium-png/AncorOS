@@ -1,122 +1,152 @@
 # AncorOS
 
-> ÐšÐ°ÑÑ‚Ð¾Ð¼Ð½Ñ‹Ð¹ Ð´Ð¸ÑÑ‚Ñ€Ð¸Ð±ÑƒÑ‚Ð¸Ð² Linux Ð½Ð° Ð±Ð°Ð·Ðµ Ubuntu 26.04 LTS Ñ ÑÑÑ‚ÐµÑ‚Ð¸ÐºÐ¾Ð¹
-> Angelcore, Ð´Ð¾Ðº-Ð¿Ð°Ð½ÐµÐ»ÑŒÑŽ Ð² ÑÑ‚Ð¸Ð»Ðµ macOS Ð¸ Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ð¹ Ð½Ð°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¾Ð¹
-> Ð¿Ñ€Ð¸ Ð¿ÐµÑ€Ð²Ð¾Ð¹ Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐµ.
+> Кастомный дистрибутив Linux на базе Ubuntu 26.04 LTS с эстетикой
+> Angelcore, док-панелью в стиле macOS и автоматической настройкой
+> при первой загрузке.
 
 ![AncorOS](assets/wallpapers/ancoros-angelcore-01-welcome-1920x1080.png)
 
-## Ð§Ñ‚Ð¾ Ñ‚Ð°ÐºÐ¾Ðµ AncorOS?
+## Что такое AncorOS
 
-AncorOS â€” ÑÑ‚Ð¾ ÐºÐ°ÑÑ‚Ð¾Ð¼Ð½Ñ‹Ð¹ Ð´Ð¸ÑÑ‚Ñ€Ð¸Ð±ÑƒÑ‚Ð¸Ð² Ð½Ð° Ð±Ð°Ð·Ðµ **Ubuntu 26.04 LTS**
-(Resolute Raccoon). Ð’ÐºÐ»ÑŽÑ‡Ð°ÐµÑ‚:
+AncorOS — кастомный дистрибутив на базе **Ubuntu 26.04 LTS** (Resolute Raccoon),
+GNOME Shell 50.1, только Wayland. Включает:
 
-- **Ð¢Ñ‘Ð¼Ð½Ð°Ñ Ñ‚ÐµÐ¼Ð° Angelcore** â€” ÑÑ„Ð¸Ñ€Ð½Ð°Ñ, Ð¿Ð°ÑÑ‚ÐµÐ»ÑŒÐ½Ð°Ñ, Ñ Ð³Ð¾Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ð¹ Ñ‚Ð¸Ð¿Ð¾Ð³Ñ€Ð°Ñ„Ð¸ÐºÐ¾Ð¹
-- **Ð”Ð¾Ðº-Ð¿Ð°Ð½ÐµÐ»ÑŒ Ð² ÑÑ‚Ð¸Ð»Ðµ macOS** â€” Dash to Dock Ñ intellihide, Ð¸ÐºÐ¾Ð½ÐºÐ°Ð¼Ð¸ 64px
-- **Ð¢ÐµÐ¼Ð° WhiteSur Dark** Ñ `--darker` Ð¾Ð²ÐµÑ€Ñ€Ð°Ð¹Ð´Ð°Ð¼Ð¸
-- **ÐÐ²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ°Ñ Ð½Ð°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ°** Ð¿Ñ€Ð¸ Ð¿ÐµÑ€Ð²Ð¾Ð¹ Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐµ
-- **ÐŸÑ€ÐµÐ´ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½Ð½Ñ‹Ðµ Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ** â€” Chrome, Telegram, OBS, Steam, VPN
-- **Ð˜Ð½ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ‚Ñ‹ Ð´Ð»Ñ Ñ€Ð°Ð·Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ¸** â€” PowerShell, VS Code, Git, Python, Docker
+- **Тёмная тема Angelcore** — эфирная, пастельная, готическая типографика в заголовках окон
+- **Док-панель в стиле macOS** — Dash to Dock снизу, иконки 64 px, intellihide, полупрозрачная
+- **Тема WhiteSur Dark** для GTK3, GTK4 и GNOME Shell, режим `--darker` через `@define-color`
+- **Меню GRUB в теме Elegant** с фоновым изображением Angelcore
+- **Автоматическая настройка** при первой загрузке через autoinstall и cloud-init
+- **Предустановленные приложения** — Chrome, VS Code, Telegram, OBS, Steam, INCY, Sober
+- **Инструменты для разработки** — PowerShell, Windows Terminal, Docker, Git, Python, Node.js, Neovim
 
-## Ð¡Ñ‚Ð°Ñ‚ÑƒÑ
+## Статус
 
-**Ð’ Ñ€Ð°Ð·Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐµ.** ISO ÑÐ¾Ð±Ñ€Ð°Ð½ Ð¸ Ð·Ð°Ð³Ñ€ÑƒÐ¶Ð°ÐµÑ‚ÑÑ, Ð½Ð¾ Ñ†ÐµÐ¿Ð¾Ñ‡ÐºÐ° squashfs-ÑÐ»Ð¾Ñ‘Ð²
-Ñ‚Ñ€ÐµÐ±ÑƒÐµÑ‚ Ð¿Ð¾Ñ‡Ð¸Ð½ÐºÐ¸ Ð¿ÐµÑ€ÐµÐ´ Ð¿ÑƒÐ±Ð»Ð¸Ñ‡Ð½Ñ‹Ð¼ Ñ€ÐµÐ»Ð¸Ð·Ð¾Ð¼.
+ISO собран, проверен локально по SHA256, El Torito валиден для BIOS и UEFI.
 
-- [x] ISO ÑÐ¾Ð±Ñ€Ð°Ð½ (4.7 Ð“Ð‘)
+| Параметр | Значение |
+|---|---|
+| Файл | `AncorOS-26.04-amd64.iso` |
+| Размер | 7 231 516 672 байт (6.73 GiB) |
+| SHA256 | `c1118bb5b70fb7b855c4bf5df7218cead5ba58ce23549856310f56a7291f137f` |
+| Загрузка | El Torito BIOS + UEFI |
+| Слои | 4 squashfs |
+
+- [x] ISO собран
 - [x] El Torito BIOS + UEFI
-- [x] Ð¢ÐµÐ¼Ð° WhiteSur Dark
-- [x] ÐžÐ±Ð¾Ð¸ Angelcore
-- [x] ÐšÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð°Ñ†Ð¸Ñ autoinstall
-- [ ] Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° Ð² live-ÑÐµÑÑÐ¸ÑŽ (Ñ‡Ð¸Ð½Ð¸Ð¼ squashfs-ÑÐ»Ð¾Ð¸)
-- [ ] Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð½Ð° Ð´Ð¸ÑÐº
-- [ ] ÐŸÑƒÐ±Ð»Ð¸Ñ‡Ð½Ñ‹Ð¹ Ñ€ÐµÐ»Ð¸Ð·
+- [x] Тема WhiteSur Dark
+- [x] Обои Angelcore, 5 фонов и 5 слайдов
+- [x] Меню GRUB в теме Elegant
+- [x] Брендинг установщика `AncorOS`
+- [x] Конфигурация autoinstall и firstboot
+- [ ] Проверка загрузки в live-сессию
+- [ ] Установка на диск
+- [ ] Публичный релиз
 
-## Ð¡Ð±Ð¾Ñ€ÐºÐ°
+## Сборка
 
-### Ð¢Ñ€ÐµÐ±Ð¾Ð²Ð°Ð½Ð¸Ñ
+### Требования
 
-- Windows 10/11 (Ñ…Ð¾ÑÑ‚)
-- QEMU 11.1.0+ (Ñ€ÐµÐ¶Ð¸Ð¼ TCG)
-- 16 Ð“Ð‘ ÐžÐ—Ð£ (Ð¼Ð¸Ð½Ð¸Ð¼ÑƒÐ¼ 8 Ð“Ð‘)
-- 70 Ð“Ð‘ ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ð¼ÐµÑÑ‚Ð°
+- Windows 10/11 (хост)
+- QEMU 11.1.0+, режим TCG, ускорение не требуется
+- 16 ГБ ОЗУ, из них 8 ГБ доступны ОС
+- 70 ГБ свободного места
 
-### ÐŸÐ°Ð¹Ð¿Ð»Ð°Ð¹Ð½ ÑÐ±Ð¾Ñ€ÐºÐ¸
+WSL и Hyper-V на хосте недоступны, поэтому сборка выполняется внутри гостевой
+VM на базе облачного образа Ubuntu 26.04.
 
-1. merge-layers.sh â€” Ð¼Ð¾Ð½Ñ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¸ overlay squashfs-ÑÐ»Ð¾Ñ‘Ð²
-2. build-chroot.sh â€” apt-Ñ€ÐµÐ¿Ð¾Ð·Ð¸Ñ‚Ð¾Ñ€Ð¸Ð¸, Ñ‚ÐµÐ¼Ñ‹, ÑˆÑ€Ð¸Ñ„Ñ‚Ñ‹, Ð¾Ð±Ð¾Ð¸, Ð±Ñ€ÐµÐ½Ð´Ð¸Ð½Ð³
-3. finish-chroot.sh â€” Ñ€ÐµÐ¼Ð¾Ð½Ñ‚ Ð¿Ñ€ÐµÑ€Ð²Ð°Ð½Ð½Ñ‹Ñ… ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð¾Ðº, flatpak, Ð¾Ñ‡Ð¸ÑÑ‚ÐºÐ°
-4. install-wallpapers.sh â€” Ð¾Ð±Ð¾Ð¸ Angelcore Ð¸ GNOME XML
-5. pack-iso-v2.sh â€” Ð¾Ñ‡Ð¸ÑÑ‚ÐºÐ° Ð´ÐµÑ€ÐµÐ²Ð°, Ñ€Ð°Ð·Ð±Ð¸Ð²ÐºÐ° ÑÐ»Ð¾Ñ‘Ð², xorriso
-6. repack-iso.sh â€” Ð¿ÐµÑ€ÐµÑÐ±Ð¾Ñ€ÐºÐ° Ð¿Ð¾ÑÐ»Ðµ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ BOM
-7. boot-test.ps1 â€” Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° ISO Ð² QEMU TCG
+### Пайплайн
 
-## ÐÑ€Ñ…Ð¸Ñ‚ÐµÐºÑ‚ÑƒÑ€Ð°
+| Шаг | Скрипт | Назначение |
+|---|---|---|
+| 1 | `scripts/merge-layers.sh` | монтирование и overlay squashfs-слоёв |
+| 2 | `scripts/build-chroot.sh` | репозитории, пакеты, темы, шрифты, обои |
+| 3 | `scripts/finish-chroot.sh` | ремонт установок, flatpak, очистка |
+| 4 | `scripts/install-wallpapers.sh` | обои Angelcore и GNOME XML |
+| 5 | `scripts/pack-final.sh` | слои squashfs и сборка образа через xorriso |
+| 6 | `scripts/branding-grub.sh` | whitelabel установщика, GRUB по умолчанию |
+| 7 | `scripts/grub-theme-build.sh` | тема Elegant, фон Angelcore |
+| 8 | `scripts/repack-final.sh` | пересборка слоёв 3 и 4 и образа |
+| 9 | `scripts/rebuild-iso.sh` | сборка образа без повторной упаковки слоёв |
+| 10 | `vm/iso-boot-test.ps1` | проверка загрузки в QEMU со скриншотами |
 
-### Ð’Ð½ÑƒÑ‚Ñ€ÐµÐ½Ð½Ð¾ÑÑ‚Ð¸ ISO
+Журнал сборки с фактами и числами: [`build-log.md`](build-log.md).
 
-- casper/minimal.squashfs â€” 4 ÐšÐ‘ (Ð¿ÑƒÑÑ‚Ð°Ñ Ð±Ð°Ð·Ð°)
-- casper/minimal.standard.squashfs â€” 1.6 Ð“Ð‘ (/usr/lib)
-- casper/minimal.standard.live.squashfs â€” 896 ÐœÐ‘ (/usr/share)
-- casper/minimal.standard.live.extra.squashfs â€” 791 ÐœÐ‘ (Ð¾ÑÑ‚Ð°Ð»ÑŒÐ½Ð¾Ðµ)
+## Архитектура
 
-Ð Ð°Ð·Ð±Ð¸Ð²ÐºÐ° Ð²Ñ‹Ð½ÑƒÐ¶Ð´ÐµÐ½Ð½Ð°Ñ â€” Ð¸Ð·-Ð·Ð° Ð»Ð¸Ð¼Ð¸Ñ‚Ð° ISO9660 Ð² 4 Ð“Ð¸Ð‘ Ð½Ð° Ñ„Ð°Ð¹Ð».
+### Внутренности ISO
 
-### Ð¢ÐµÐ¼Ð°
+| Слой | Содержимое | Размер, байт |
+|---|---|---|
+| `minimal.squashfs` | пустая база | 4 096 |
+| `minimal.standard.squashfs` | `usr/lib` | 1 621 405 696 |
+| `minimal.standard.live.squashfs` | `usr/share` | 896 565 248 |
+| `minimal.standard.live.extra.squashfs` | остальное | 3 287 158 784 |
 
-- WhiteSur Dark Ð¿Ð¾ÑÑ‚Ð°Ð²Ð»ÑÐµÑ‚ÑÑ ÐºÐ°Ðº GResource
-- --darker ÑÐ¼ÑƒÐ»Ð¸Ñ€ÑƒÐµÑ‚ÑÑ Ñ‡ÐµÑ€ÐµÐ· @define-color Ð¾Ð²ÐµÑ€Ñ€Ð°Ð¹Ð´Ñ‹
-- Ð¦Ð²ÐµÑ‚Ð° Angelcore dark: Ð¿Ð¾Ð²ÐµÑ€Ñ…Ð½Ð¾ÑÑ‚Ð¸ #1b1a22 / #131218
-- Ð¨Ñ€Ð¸Ñ„Ñ‚Ñ‹: Comfortaa, Inter, Unifraktur Cook, Cormorant Garamond
+Разбивка вынужденная: лимит ISO9660 — 4 ГиБ на файл. Цепочка строится от имени
+в `LAYERFS_PATH` отбрасыванием сегментов по точкам, а верхний слой передаётся
+через параметр ядра `layerfs-path=` в `boot/grub/grub.cfg`, потому что `LAYERFS_PATH`
+в initrd указывает на имя без четвёртого сегмента. initrd не перепаковывается.
 
-### ÐÐ²Ñ‚Ð¾Ð½Ð°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ°
+`casper/install-sources.yaml` переведён на верхний слой, `preinstalled_langs` пустой.
 
-- /usr/local/bin/ancoros-firstboot.sh â€” Ð¸Ð· cloud-init runcmd
-- /usr/local/bin/ancoros-apply-look.sh â€” Ð°Ð²Ñ‚Ð¾Ð·Ð°Ð¿ÑƒÑÐº ÐºÐ°Ð¶Ð´ÑƒÑŽ ÑÐµÑÑÐ¸ÑŽ
-- Guard-Ñ„Ð°Ð¹Ð» /var/lib/ancoros-firstboot.done â€” Ð¸Ð´ÐµÐ¼Ð¿Ð¾Ñ‚ÐµÐ½Ñ‚Ð½Ð¾ÑÑ‚ÑŒ
+### Оформление
 
-## Ð˜Ð·Ð²ÐµÑÑ‚Ð½Ñ‹Ðµ Ð¿Ñ€Ð¾Ð±Ð»ÐµÐ¼Ñ‹
+- WhiteSur Dark поставляется как GResource, тема лежит в `usr/share/themes/WhiteSur-Dark`
+- Режим `--darker` эмулируется через оверрайды `@define-color` для GTK3, GTK4 и Shell
+- Иконки `WhiteSur-Dark`, курсоры `WhiteSur-cursors`
+- Шрифты: Comfortaa, Inter, Unifraktur Cook, Cormorant Garamond, Playfair Display, Pirata One
+- Умолчания заданы в `99-ancoros.gschema.override`, `tiling-assistant` отключён
+- Меню GRUB: тема `Elegant-mountain-window-left-dark`, `GRUB_GFXMODE=1920x1080`
 
-- Ð¦ÐµÐ¿Ð¾Ñ‡ÐºÐ° squashfs-ÑÐ»Ð¾Ñ‘Ð² ÑÐ»Ð¾Ð¼Ð°Ð½Ð° â€” Ð·Ð°Ð³Ñ€ÑƒÐ¶Ð°ÐµÑ‚ÑÑ Ð² (initramfs)
-- install-sources.yaml ÑƒÐºÐ°Ð·Ñ‹Ð²Ð°ÐµÑ‚ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð½Ð° extra.squashfs
-- LAYERFS_PATH ÑÑÑ‹Ð»Ð°ÐµÑ‚ÑÑ Ð½Ð° ÑÑ‚Ð°Ñ€ÑƒÑŽ Ñ†ÐµÐ¿Ð¾Ñ‡ÐºÑƒ
-- Ð£ÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð½Ð° Ð´Ð¸ÑÐº Ð½Ðµ Ñ‚ÐµÑÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð»Ð°ÑÑŒ
-- ÐŸÐ°Ñ€Ð¾Ð»ÑŒ autoinstall â€” Ð¿Ð»ÐµÐ¹ÑÑ…Ð¾Ð»Ð´ÐµÑ€: ancor / ancoros
+### Автонастройка
 
-## Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ
+- `/usr/local/bin/ancoros-firstboot.sh` — запускается из cloud-init `runcmd`
+- `/usr/local/bin/ancoros-apply-look.sh` — автозапуск каждую сессию
+- `/var/lib/ancoros-firstboot.done` — защита от повторного запуска
+- `iso/user-data`, `iso/meta-data` — NoCloud seed
+- `iso/autoinstall.yaml` — конфиг subiquity
 
-MIT License. Ð¡Ð¼. LICENSE.
-
-## Ð‘Ð»Ð°Ð³Ð¾Ð´Ð°Ñ€Ð½Ð¾ÑÑ‚Ð¸
-
-- Ð‘Ð°Ð·Ð°: Ubuntu 26.04 LTS Ð¾Ñ‚ Canonical
-- Ð¢ÐµÐ¼Ð°: WhiteSur Ð¾Ñ‚ vinceliuice
-- Ð˜ÐºÐ¾Ð½ÐºÐ¸: WhiteSur Icon Theme
-- Ð¨Ñ€Ð¸Ñ„Ñ‚Ñ‹: Comfortaa, Inter, Unifraktur Cook
-
----
-
-**AncorOS** â€” *ÑÑ„Ð¸Ñ€Ð½Ñ‹Ð¹ Linux Ð´Ð»Ñ Ñ‚Ñ‘Ð¼Ð½Ñ‹Ñ….*
 ## Структура репозитория
 
 ```
 assets/
   fonts/        5 TTF — Unifraktur Cook, Cormorant Garamond, Playfair, Pirata One
-  generated/    обои и 5 слайдов установщика
+  generated/    сгенерированные обои и 5 слайдов установщика
   src/          исходные изображения и шрифты
-  wallpapers/   10 обоев Angelcore (1920x1080 и 3840x2160)
-  repo/         баннер, галерея и логотип для репозитория
-iso/            конфиги автоустановки и firstboot
-  ancoros-apply-look.sh   применяет тему при каждом входе
-  ancoros-firstboot.sh    ставит приложения при первой загрузке
-  autoinstall.yaml        конфиг автоустановки subiquity
-  grub.cfg                меню загрузки с брендингом AncorOS
-  meta-data, user-data    NoCloud seed
-scripts/        44 скрипта сборки и диагностики
-vm/             PowerShell-обвязка QEMU и NoCloud seed
+  wallpapers/   10 обоев Angelcore, 1920x1080 и 3840x2160
+  repo/         баннер, галерея и логотип
+iso/            конфиги автоустановки, firstboot и GRUB
+scripts/        скрипты сборки и диагностики
+vm/             PowerShell-обвязка QEMU, PPM-конвертер, скриншоты
 ```
 
-Смежные папки рядом с репозиторием:
+Смежные папки рядом с репозиторием, в git не входят:
 
 - `ancoros-site/` — отдельный git-репозиторий лендинга для Netlify
-- `AncorISO/` — готовый ISO, отчёты SHA256 и changelog (в git не попадает)
+- `AncorISO/` — отчёты `SHA256.txt`, `README.txt`, `changelog.txt`
+
+## Известные ограничения
+
+- Установка на диск не проверялась, тестировалась только загрузка
+- Логин и пароль автоустановки — заготовка: `ancor` / `ancoros`
+- `update-grub` внутри chroot падает с `grub-probe: failed to get canonical path of 'overlay'`,
+  это ожидаемо для overlayfs; `GRUB_THEME` сохраняется в `/etc/default/grub` и применится
+  при `update-grub` после установки
+- У Ubuntu Dock в GNOME 50 отсутствует ключ `magnification`
+- Ubiquity в 26.04 нет, установщик — subiquity на Flutter, слайды ubiquity не показываются
+
+## Лицензия
+
+MIT License. См. [LICENSE](LICENSE).
+
+## Благодарности
+
+- База: Ubuntu 26.04 LTS от Canonical
+- Тема: WhiteSur от vinceliuice
+- Тема GRUB: Elegant grub2 themes от vinceliuice
+- Иконки: WhiteSur Icon Theme
+- Шрифты: Comfortaa, Inter, Unifraktur Cook, Cormorant Garamond
+
+---
+
+**AncorOS** — *эфирный Linux для тёмных.*
