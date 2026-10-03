@@ -269,6 +269,84 @@ menuentry "Try or Install Ubuntu" {
   чтобы при следующем отказе лог писался в `boot-serial.log`, а не терялся
   за `quiet splash`
 
+### Семантика mksquashfs, установленная экспериментом
+
+squashfs-tools 4.7.5. Проверено на дереве-заготовке, каждая строка — реальный вывод:
+
+| Команда | Что оказалось внутри архива |
+|---|---|
+| `mksquashfs usr/lib out.sq` | `squashfs-root/deep/MARKER` |
+| `mksquashfs /abs/path/usr/lib out.sq` | `squashfs-root/deep/MARKER` |
+| `mksquashfs usr/lib usr/bin etc out.sq` | `squashfs-root/lib`, `squashfs-root/bin`, `squashfs-root/etc` |
+| `mksquashfs . out.sq -e usr/bin` | `squashfs-root/usr/lib/...` |
+| `mksquashfs . out.sq -keep-as-directory` | `squashfs-root/<имя каталога>/...` |
+
+Выводы:
+
+1. Каталог-источник оборачивается в `squashfs-root`, его имя теряется.
+   Несколько источников схлопываются до basename: `usr/lib` → `lib`.
+2. Обёртка `squashfs-root` — это норма. Она есть и в слоях самой Ubuntu.
+3. `-keep-as-directory` сохраняет имя каталога, но только последний сегмент.
+4. `-ef` в 4.7.5 — это список **исключений**, а не включений; включений через
+   список файлов в этой версии нет.
+5. При совпадении имён mksquashfs переименовывает дубликат: `usr/bin`, попавший
+   в корень, столкнулся с симлинком `/bin` и стал `bin_1`.
+
+Отсюда и поломка: `usr/bin` превратился в `bin`, `/sbin/init` — симлинк в никуда,
+`/usr/lib/systemd/systemd` отсутствует.
+
+### Правильная сборка слоёв
+
+Каждый слой собирается от корня дерева, состав задаётся исключениями:
+
+```bash
+mksquashfs . <dest> -noappend -processors 6 -comp zstd -Xcompression-level 15 \
+  -b 1M -xattrs -xattrs-exclude '^trusted\.overlay\..*' <excludes>
+
+# база: всё, кроме usr/lib и usr/share
+build minimal.squashfs            -e usr/lib -e usr/share $EX_PSEUDO
+
+# дельта: только usr/lib — исключены все прочие верхние каталоги и всё usr/* кроме lib
+build minimal.standard.squashfs   $EX_TOP $EX_STD  $EX_PSEUDO
+
+# дельта: только usr/share
+build minimal.standard.live.squashfs $EX_TOP $EX_LIVE $EX_PSEUDO
+```
+
+Путь назначения обязан идти сразу за источником, до опций. При нарушении
+`mksquashfs` печатает usage и ничего не создаёт.
+
+### Результат перепаковки
+
+| Слой | Записей | `usr/lib` | `usr/bin` | `usr/share` | `bin_1` | Ключевое |
+|---|---|---|---|---|---|---|
+| `minimal.squashfs` | 123 805 | 0 | 1 687 | 0 | 0 | bash, firstboot-скрипты |
+| `minimal.standard.squashfs` | 37 012 | 37 009 | 0 | 0 | 0 | systemd |
+| `minimal.standard.live.squashfs` | 164 203 | 0 | 0 | 164 200 | 0 | gnome-shell, WhiteSur 12 404, whitelabel |
+
+Для сравнения, слои Ubuntu:
+
+| Слой | Записей | `usr/lib` | `usr/bin` | `usr/share` |
+|---|---|---|---|---|
+| `minimal.squashfs` | 174 601 | 32 301 | 1 447 | 94 673 |
+| `minimal.standard.squashfs` | 52 439 | 4 276 | 46 | 43 018 |
+| `minimal.standard.live.squashfs` | 2 884 | 632 | 32 | 1 295 |
+
+### Почему три слоя, а не четыре
+
+`conf/conf.d/default-layer.conf` в initrd жёстко содержит
+`LAYERFS_PATH=minimal.standard.live.squashfs`, цепочка строится отбрасыванием
+сегментов по точкам. Четвёртый слой потребовал бы распаковки initrd — 95 МБ,
+три секции: cpio микрокода, cpio и zstd. Запас по лимиту ISO9660 и так
+0.94 ГиБ, поэтому цепочка оставлена трёхслойной, как в оригинале.
+
+### Ошибки проверки, которые пришлось исправить
+
+| Симптом | Причина |
+|---|---|
+| `FATAL no whitelabel in base` | `whitelabel.yaml` лежит в `usr/share`, проверялся в базовом слое |
+| `user-data` не обновляется в ISO | файлы в дереве ISO принадлежат root, `cp` без прав |
+| слои исчезли за секунду | путь назначения после опций в `mksquashfs` |
 ### Побочные ошибки сборки
 
 | Симптом | Причина | Исправление |

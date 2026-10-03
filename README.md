@@ -26,10 +26,10 @@ ISO собран, проверен локально по SHA256, El Torito ва�
 | Параметр | Значение |
 |---|---|
 | Файл | `AncorOS-26.04-amd64.iso` |
-| Размер | 7 231 516 672 байт (6.73 GiB) |
-| SHA256 | `c1118bb5b70fb7b855c4bf5df7218cead5ba58ce23549856310f56a7291f137f` |
+| Размер | 7 229 530 112 байт (6.73 GiB) |
+| SHA256 | `6e4e58ad6d1aa6228f5e585b0938cf4b6dfc6716e325effe910adf4b6c8f8a6a` |
 | Загрузка | El Torito BIOS + UEFI |
-| Слои | 4 squashfs |
+| Слои | 3 squashfs |
 
 - [x] ISO собран
 - [x] El Torito BIOS + UEFI
@@ -81,7 +81,7 @@ VM на базе облачного образа Ubuntu 26.04.
 |---|---|---|
 | `minimal.standard.live.squashfs` | `usr/share` | 896 565 248 |
 | `minimal.standard.squashfs` | `usr/lib` | 1 621 405 696 |
-| `minimal.squashfs` | всё остальное | 3 287 158 784 |
+| `minimal.squashfs` | всё остальное | 3 287 179 264 |
 
 Casper читает `conf/conf.d/default-layer.conf` в initrd, где задано
 `LAYERFS_PATH=minimal.standard.live.squashfs`, и строит оверлей отбрасыванием
@@ -90,7 +90,7 @@ Casper читает `conf/conf.d/default-layer.conf` в initrd, где зада�
 `boot/grub/grub.cfg` в оригинале передаёт ядру только `--- quiet splash`.
 
 Слои наполнены вручную, потому что лимит ISO9660 — 4 ГиБ на файл, а полная система
-не помещается: база 3.06 GiB плюс два дельты. Наборы файлов непересекающиеся,
+не помещается: база 3.06 GiB плюс две дельты, запас до лимита 0.94 GiB. Наборы файлов непересекающиеся,
 поэтому перекрытие слоёв не влияет на результат.
 
 `casper/install-sources.yaml` объявляет верхний слой `minimal.standard.live.squashfs`,

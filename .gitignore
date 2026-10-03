@@ -25,3 +25,6 @@ ancoros-site/
 AncorISO/
 assets/src/*.exe
 assets/src/*.zip
+screenshots/*.ppm
+screenshots/*.log
+progress.log
