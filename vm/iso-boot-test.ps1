@@ -4,7 +4,7 @@ param(
   [int]$MemoryMB = 5120,
   [int]$Cpus = 6,
   [int]$QmpPort = 4499,
-  [int[]]$Marks = @(6, 16, 30, 70, 150, 300, 480, 720),
+  [int[]]$Marks = @(10, 22, 40, 70, 150, 300, 480, 720),
   [string]$Tag = '',
   [switch]$NoGui,
   [switch]$KillExisting

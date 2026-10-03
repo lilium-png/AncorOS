@@ -198,3 +198,91 @@ eff8ae0 Add gitattributes: enforce LF line endings for scripts and configs
 - `core.autocrlf=false`, `.gitattributes` жёстко закрепляет LF для `.sh`, `.yaml`, `.md`
 - push выполнен: `refs/heads/main` = `76eab47`
 - `C:\Project-AncorOS\ancoros-site` — отдельный репозиторий лендинга
+
+---
+## Этап 8. Kernel panic и разбор цепочки слоёв
+
+### Симптом
+
+Живая загрузка дошла до ядра и initramfs, затем:
+
+```
+KERNEL PANIC!
+Attempted to kill init! exitcode=0x00000100
+```
+
+### Диагностика
+
+`conf/conf.d/default-layer.conf` распакован из initrd оригинального образа.
+Путь до содержимого: `casper/initrd` — это cpio микрокода, следом идёт
+нераспакованный cpio, затем zstd-секция. Дальше `conf/conf.d/`:
+
+```
+default-layer.conf:
+LAYERFS_PATH=minimal.standard.live.squashfs
+
+casperize.conf:
+export CASPER_GENERATE_UUID=1
+
+default-boot-to-casper.conf:
+if [ -z "$BOOT" ]; then
+    export BOOT=casper
+fi
+```
+
+Цепочка строится отбрасыванием сегментов по точкам от имени в `LAYERFS_PATH`.
+
+Сравнение с оригиналом:
+
+| Слой | Оригинал | Собранный образ |
+|---|---|---|
+| `minimal.standard.live.squashfs` | 793 112 576 | 896 565 248 |
+| `minimal.standard.squashfs` | 590 053 376 | 1 621 405 696 |
+| `minimal.squashfs` | 3 432 136 704 | **4 096** |
+| `minimal.standard.live.extra.squashfs` | отсутствует | 3 287 158 784 |
+
+### Две ошибки
+
+1. **Пустая база.** `minimal.squashfs` весил 4 КБ. Весь остальной состав системы
+   лежал в выдуманном четвёртом слое `minimal.standard.live.extra.squashfs`.
+   Оверлей собирался из трёх слоёв, нижний из которых был пуст, поэтому init
+   не нашёл корень и завершился с кодом `0x100`.
+2. **Несуществующий параметр.** `layerfs-path=` в каспере отсутствует.
+   В оригинальном `boot/grub/grub.cfg` ядру передаётся только `--- quiet splash`:
+
+```
+menuentry "Try or Install Ubuntu" {
+    set gfxpayload=keep
+    linux  /casper/vmlinuz  --- quiet splash
+    initrd /casper/initrd
+}
+```
+
+### Исправление
+
+- `minimal.standard.live.extra.squashfs` переименован в `minimal.squashfs`
+  перемещением файла, перепаковка не потребовалась
+- `grub.cfg`: параметр `layerfs-path=` убран из всех трёх пунктов меню
+- `install-sources.yaml`: `path: minimal.standard.live.squashfs`,
+  `size` взят с запасом — точное значение требует теста установки
+- `console=tty0 console=ttyS0,115200n8` добавлен в командную строку ядра,
+  чтобы при следующем отказе лог писался в `boot-serial.log`, а не терялся
+  за `quiet splash`
+
+### Побочные ошибки сборки
+
+| Симптом | Причина | Исправление |
+|---|---|---|
+| `grub.cfg` в дереве ISO — 0 байт | heredoc писал в read-only файл, принадлежащий root | `chown` перед записью, `scripts/rebuild-iso.sh` |
+| ISO 3.94 ГБ вместо 7.2 ГБ | `cp` слоёв в `casper/` не прошёл без прав | `chown -R` каталога, жёсткая сверка размеров |
+| `size: 0` в install-sources | `du` без прав вернул ноль | оверлей не смонтирован, размер взят с запасом |
+| Тема GRUB не видна | фон 1920×1080 PNG 2 МБ не успевает декодироваться | JPEG 1280×720, 74 КБ, `insmod jpeg` |
+
+---
+
+## Этап 9. Скриншоты загрузки
+
+Снимаются в `screenshots/` через QMP `screendump`, конвертируются в PNG
+скриптом `vm/iso-boot-test.ps1`, точки: 10, 22, 40, 70, 150, 300, 480, 720 секунд.
+
+---

@@ -75,19 +75,26 @@ VM на базе облачного образа Ubuntu 26.04.
 
 ### Внутренности ISO
 
+Цепочка ровно из трёх слоёв, как в оригинальном образе Ubuntu 26.04:
+
 | Слой | Содержимое | Размер, байт |
 |---|---|---|
-| `minimal.squashfs` | пустая база | 4 096 |
-| `minimal.standard.squashfs` | `usr/lib` | 1 621 405 696 |
 | `minimal.standard.live.squashfs` | `usr/share` | 896 565 248 |
-| `minimal.standard.live.extra.squashfs` | остальное | 3 287 158 784 |
+| `minimal.standard.squashfs` | `usr/lib` | 1 621 405 696 |
+| `minimal.squashfs` | всё остальное | 3 287 158 784 |
 
-Разбивка вынужденная: лимит ISO9660 — 4 ГиБ на файл. Цепочка строится от имени
-в `LAYERFS_PATH` отбрасыванием сегментов по точкам, а верхний слой передаётся
-через параметр ядра `layerfs-path=` в `boot/grub/grub.cfg`, потому что `LAYERFS_PATH`
-в initrd указывает на имя без четвёртого сегмента. initrd не перепаковывается.
+Casper читает `conf/conf.d/default-layer.conf` в initrd, где задано
+`LAYERFS_PATH=minimal.standard.live.squashfs`, и строит оверлей отбрасыванием
+сегментов по точкам: `minimal.standard.live` → `minimal.standard` → `minimal`.
+Четвёртого слоя в Ubuntu не существует, параметра `layerfs-path=` у каспера тоже нет —
+`boot/grub/grub.cfg` в оригинале передаёт ядру только `--- quiet splash`.
 
-`casper/install-sources.yaml` переведён на верхний слой, `preinstalled_langs` пустой.
+Слои наполнены вручную, потому что лимит ISO9660 — 4 ГиБ на файл, а полная система
+не помещается: база 3.06 GiB плюс два дельты. Наборы файлов непересекающиеся,
+поэтому перекрытие слоёв не влияет на результат.
+
+`casper/install-sources.yaml` объявляет верхний слой `minimal.standard.live.squashfs`,
+`preinstalled_langs` пустой. initrd не перепаковывается.
 
 ### Оформление
 
