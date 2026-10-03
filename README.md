@@ -208,3 +208,4 @@ MIT License. См. [LICENSE](LICENSE).
 | Кадр | Что на нём |
 |---|---|
 | `06-installer.png` | установщик subiquity на финальном экране, имя AncorOS |
+| `site-download.png` | раздел «Скачать» на сайте с прямой ссылкой на образ |
