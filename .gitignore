@@ -21,7 +21,11 @@ slides/
 Thumbs.db
 .DS_Store
 desktop.ini
+# отдельный репозиторий со своим remote: lilium-png/ancoros-site
+# сюда он не импортируется, изменения коммитятся у себя
 ancoros-site/
+# вложенная копия старого репозитория, 73 ГБ, у неё свой .git
+AncorOS/
 AncorISO/
 assets/src/*.exe
 assets/src/*.zip
